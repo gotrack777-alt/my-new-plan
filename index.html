@@ -3,13 +3,162 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقعي الأول</title>
+    <title>وقار | WAQAR - للأزياء المحتشمة</title>
+    <!-- خط تجوال من Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- مكتبة الأيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>مرحباً بك في موقعي الجديد!</h1>
-        <p>تم إطلاق الموقع وتجهيز بيئة العمل بنجاح.</p>
+
+    <!-- شريط الإعلان العلوي -->
+    <div class="top-announcement">
+        شحن وتوصيل لجميع المحافظات | الدفع عند الاستلام والمعاينة قبل الاستلام
+    </div>
+
+    <!-- شريط التنقل (Navbar) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand-logo">
+                وقار <span>WAQAR</span>
+            </a>
+            <div class="nav-links">
+                <a href="#categories">الأقسام</a>
+                <a href="#products">التشكيلة الجديدة</a>
+                <a href="#about">قيم وقار</a>
+            </div>
+            <div class="cart-trigger" id="cartBtn">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- واجهة الترحيب (Hero Section) -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="sub-badge"><i class="fa-solid fa-gem"></i> تشكيلة الأناقة والستر</span>
+            <h1>جمال الحشمة، وأناقة التفاصيل</h1>
+            <p>أزياء راقية وقصات ساترة بخامات معتمدة غير شفافة صُممت بعناية لتمنحك الوقار والراحة في كل إطلالة.</p>
+            <a href="#products" class="btn primary-btn">تصفحي التشكيلة <i class="fa-solid fa-arrow-down"></i></a>
+        </div>
     </header>
+
+    <!-- أقسام الفلترة السريعة (Filter Chips) -->
+    <section class="container filter-section" id="categories">
+        <div class="filter-chips">
+            <button class="chip active" onclick="filterCategory('الكل')">جميع القطع</button>
+            <button class="chip" onclick="filterCategory('فساتين')">فساتين ودريسات</button>
+            <button class="chip" onclick="filterCategory('سوتس')">سوتس محتشمة</button>
+            <button class="chip" onclick="filterCategory('عبايات')">عبايات وكيمونو</button>
+            <button class="chip" onclick="filterCategory('طرح وخمار')">طرح وخمارات</button>
+        </div>
+    </section>
+
+    <!-- شبكة المنتجات -->
+    <main class="container" id="products">
+        <div class="products-grid" id="productsGrid">
+            <!-- المنتجات يتم توليدها ديناميكياً من script.js -->
+        </div>
+    </main>
+
+    <!-- قسم عن البراند -->
+    <section class="about-section" id="about">
+        <div class="container about-grid">
+            <div class="about-card">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h4>أقمشة غير شفافة</h4>
+                <p>نختار خاماتنا بدقة تامة لتضمن لكِ ستراً كاملاً دون الحاجة لطبقات داخلية متعددة.</p>
+            </div>
+            <div class="about-card">
+                <i class="fa-solid fa-ruler-combined"></i>
+                <h4>قصات فضفاضة ومريحة</h4>
+                <p>تصاميم مدروسة لتمنحك حرية الحركة والمظهر العصري المحتشم.</p>
+            </div>
+            <div class="about-card">
+                <i class="fa-solid fa-box-open"></i>
+                <h4>معاينة قبل الدفع</h4>
+                <p>يمكنك فحص القطعة ومعاينتها والتأكد من المقاس مع المندوب قبل الاستلام.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- السلة الجانبية (Cart Drawer) -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3><i class="fa-solid fa-bag-shopping"></i> سلة التسوق</h3>
+            <button class="close-cart" id="closeCartBtn">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- المنتجات تظهر هنا -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span>الإجمالي:</span>
+                <span id="cartTotalPrice">0 ج.م</span>
+            </div>
+            <button class="btn checkout-btn" id="openCheckoutModalBtn">متابعة تأكيد الطلب</button>
+        </div>
+    </aside>
+
+    <!-- نافذة تأكيد الطلب (Checkout Modal) -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>بيانات الشحن والتوصيل</h3>
+                <button class="close-modal" id="closeCheckoutBtn">&times;</button>
+            </div>
+            <form id="orderForm">
+                <div class="form-group">
+                    <label>الاسم بالكامل</label>
+                    <input type="text" id="custName" placeholder="مثال: ياسمين أحمد" required>
+                </div>
+                <div class="form-group">
+                    <label>رقم الهاتف (واتساب متاح)</label>
+                    <input type="tel" id="custPhone" placeholder="010xxxxxxxx" required>
+                </div>
+                <div class="form-group">
+                    <label>المحافظة والمدينة</label>
+                    <input type="text" id="custCity" placeholder="مثال: الجيزة - 6 أكتوبر" required>
+                </div>
+                <div class="form-group">
+                    <label>العنوان بالتفصيل</label>
+                    <textarea id="custAddress" rows="2" placeholder="المنطقة، الشارع، رقم المبنى، وعلامة مميزة" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>ملاحظات إضافية (اختياري)</label>
+                    <input type="text" id="custNotes" placeholder="تفضيل وقت الاستلام أو تفاصيل خاصة بالمقاس">
+                </div>
+                <div class="form-group">
+                    <label>طريقة الدفع</label>
+                    <div class="payment-badge">
+                        <i class="fa-solid fa-hand-holding-dollar"></i> الدفع عند الاستلام مع إمكانية المعاينة
+                    </div>
+                </div>
+                <button type="submit" class="btn order-confirm-btn">
+                    <i class="fa-brands fa-whatsapp"></i> إرسال الفاتورة وتأكيد الطلب عبر واتساب
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- زر واتساب العائم -->
+    <a href="https://wa.me/201000000000" target="_blank" class="floating-whatsapp" title="استفسار سريع عبر واتساب">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <footer>
+        <p>براند <strong>وقار | WAQAR</strong> للأزياء المحتشمة &copy; 2026 - صُنع بكل فخر</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
-</html>
+</html><footer>
+    <p>براند <strong>وقار | WAQAR</strong> للأزياء المحتشمة &copy; 2026 - صُنع بكل فخر 
+       <a href="admin.html" title="دخول الإدارة" style="color: inherit; text-decoration: none; margin-right: 8px; opacity: 0.4;">🔒</a>
+    </p>
+</footer>
